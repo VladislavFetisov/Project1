@@ -1,8 +1,13 @@
+import java.awt.*;
+
 import static java.lang.Math.*;
 
-public class CrossAndZeros {
+final public class CrossAndZeros {
     int size;
     char[][] table;
+    Point del1 = new Point(1, 1);
+    Point del2 = new Point(1, -1);
+    Point[] delts = {del1, del2};
 
     public CrossAndZeros(int size) {
         this.size = size;
@@ -20,8 +25,8 @@ public class CrossAndZeros {
     public int longestLineOrCol(char symbol) {
         int countI = 0, countJ = 0, maxCountI = 0, maxCountJ = 0;
 
-        for (int i = 0; i < this.table.length; i++) {
-            for (int j = 0; j < this.table.length; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if (this.table[i][j] == symbol) {
                     countI++;
                     if (countI > maxCountI) maxCountI = countI;
@@ -32,22 +37,69 @@ public class CrossAndZeros {
                 } else countJ = 0;
             }
             countI = 0;
-            if (maxCountI == this.table.length || maxCountJ == this.table.length) break;
+            if (maxCountI == size || maxCountJ == size) break;
         }
         return max(maxCountI, maxCountJ);
     }
 
-    //public int longestDiagonal(char symbol) { }
+    public int longestDiagonal(char symbol) {
+        int x = 0, y = 0, i = 0, count = 0, maxCount = 0;
+        while (i != size) {
+            for (Point delt : delts) {
+                while (x >= 0 && x < size && y >= 0 && y < size) {
+                    if (table[x][y] == symbol) count++;
+                    else count = 0;
+                    if (count > maxCount) maxCount = count;
+                    x += delt.x;
+                    y += delt.y;
+                }
+                count = 0;
+                x = 0;
+                y = i;
+            }
+            y++;
+            i++;
+        }
+        x = 1;
+        y = 0;
+        i = 1;
+        boolean moreHalf = false;
+        while (i != size - 1) {
+            Point delt;
+            if (moreHalf) delt = del2;
+            else delt = del1;
+            while (x >= 0 && x < size && y >= 0 && y < size) {
+                if (table[x][y] == symbol) count++;
+                else count = 0;
+                if (count > maxCount) maxCount = count;
+                x += delt.x;
+                y += delt.y;
+            }
+            count = 0;
+            if (moreHalf) y = size - 1;
+            else y = 0;
+            x = i;
+            x++;
+            i++;
+            if (i == size - 1) {
+                if (moreHalf) break;
+                else moreHalf = true;
+                x = 1;
+                y = size - 1;
+                i = 1;
+            }
+        }
+        return maxCount;
+    }
 
     public void returnTable() {
         for (char[] chars : this.table) {
-            for (int j = 0; j < this.table.length; j++) {
+            for (int j = 0; j < size; j++) {
                 if (chars[j] != '0' && chars[j] != 'X') System.out.print('*');
                 else System.out.print(chars[j]);
             }
             System.out.print("\n");
         }
     }
-
 }
 
