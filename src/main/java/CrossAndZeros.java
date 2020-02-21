@@ -42,7 +42,7 @@ final public class CrossAndZeros {
         return max(maxCountI, maxCountJ);
     }
 
-    public int longestDiagonal(char symbol) {
+    public int longestDiagonal(char symbol) {//Этот цикл про который мы с вами говорили.
         int x = 0, y = 0, i = 0, count = 0, maxCount = 0;
         while (i != size) {
             for (Point delt : delts) {
@@ -62,8 +62,8 @@ final public class CrossAndZeros {
         }
         x = 1;
         y = 0;
-        i = 1;
-        boolean moreHalf = false;
+        i = 1;//Здесь я перемещаюсь в точку (1;0),чтобы начать оттуда  прохождение по диагоналям до низа(отрабатываю правые диагонали,так как левых нет
+        boolean moreHalf = false;//Это используется для того,чтобы вовремя перескочить в точку (1;3)(если для 4клеток),в общем случае для (1,size-1)
         while (i != size - 1) {
             Point delt;
             if (moreHalf) delt = del2;
@@ -85,8 +85,8 @@ final public class CrossAndZeros {
                 if (moreHalf) break;
                 else moreHalf = true;
                 x = 1;
-                y = size - 1;
-                i = 1;
+                y = size - 1;//С этой точки и начинается отработка левых диагоналей до предпослденей клетки низа
+                i = 1;//Потом цикл просто break
             }
         }
         return maxCount;
