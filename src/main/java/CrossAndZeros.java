@@ -2,7 +2,7 @@ import java.awt.*;
 
 import static java.lang.Math.*;
 
-final public class CrossAndZeros {
+public class CrossAndZeros {
     int size;
     char[][] table;
     Point del1 = new Point(1, 1);
@@ -86,7 +86,8 @@ final public class CrossAndZeros {
                 else moreHalf = true;
                 x = 1;
                 y = size - 1;//С этой точки и начинается отработка левых диагоналей до предпослденей клетки низа
-                i = 1;//Потом цикл просто break
+                //Потом цикл просто break
+                i = 1;
             }
         }
         return maxCount;
