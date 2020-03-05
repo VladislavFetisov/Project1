@@ -12,6 +12,12 @@ class CrossAndZerosTest {
         assertTrue(asd.addSymbol(O, 2, 3));
         assertFalse(asd.addSymbol(O, 2, 3));
         assertFalse(asd.addSymbol(X, 2, 3));
+        try{
+            assertTrue(asd.addSymbol(Null,1,1));
+        }
+        catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
@@ -52,5 +58,13 @@ class CrossAndZerosTest {
         a.clearCell(1, 1);
         a.addSymbol(O, 1, 1);
         assertEquals(a, b);
+    }
+    @Test
+    void CrossAndZeros(){
+        try{
+            CrossAndZeros a=new CrossAndZeros(-1);
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

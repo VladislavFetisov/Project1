@@ -25,7 +25,7 @@ public class CrossAndZeros {
     }
 
     public boolean addSymbol(Symbol symbol, int line, int column) {
-        if (symbol == Null) throw new IllegalArgumentException("Добавлять возможно только X или O!");
+        if (symbol == Null) throw new IllegalArgumentException("Воспользуйтесь методом очищения клетки!");
         if (table[line][column] == Null) {
             table[line][column] = symbol;
             return true;
