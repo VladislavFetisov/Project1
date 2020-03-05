@@ -33,10 +33,6 @@ public class CrossAndZeros {
         return false;
     }
 
-    public Symbol getSymbol(int line, int column) {
-        return table[line][column];
-    }
-
     public boolean clearCell(int line, int column) {
         if (table[line][column] == Null) {
             System.out.println("Клетка уже пустая");
@@ -128,8 +124,7 @@ public class CrossAndZeros {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CrossAndZeros that = (CrossAndZeros) o;
-        return size == that.size &&
-                Arrays.equals(table, that.table);
+        return Arrays.deepEquals(table, that.table);
     }
 
     @Override

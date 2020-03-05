@@ -38,7 +38,19 @@ class CrossAndZerosTest {
         test.addSymbol(O, 0, 0);
         test.addSymbol(O, 1, 0);
         System.out.println(test.toString());
-        assertEquals(3,test.longestLine(X));
-        assertEquals(4,test.longestLine(O));
+        assertEquals(3, test.longestLine(X));
+        assertEquals(4, test.longestLine(O));
+    }
+
+    @Test
+    void equals() {
+        CrossAndZeros a = new CrossAndZeros(4);
+        CrossAndZeros b = new CrossAndZeros(4);
+        b.addSymbol(O, 1, 1);
+        a.addSymbol(X, 1, 1);
+        assertNotEquals(a, b);
+        a.clearCell(1, 1);
+        a.addSymbol(O, 1, 1);
+        assertEquals(a, b);
     }
 }
