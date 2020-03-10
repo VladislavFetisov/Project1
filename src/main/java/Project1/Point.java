@@ -1,4 +1,4 @@
-package Projects;
+package Project1;
 
 public class Point {
 

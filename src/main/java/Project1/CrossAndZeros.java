@@ -1,9 +1,9 @@
-package Projects;
+package Project1;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-import static Projects.Symbol.Null;
+import static Project1.Symbol.Null;
 
 public class CrossAndZeros {
 
@@ -12,6 +12,7 @@ public class CrossAndZeros {
     private Point del1 = new Point(1, 1);
     private Point del2 = new Point(1, -1);
     private Point[] delts = {del1, del2};
+
 
     public CrossAndZeros(int size) {
         if (size <= 0) throw new IllegalArgumentException("Введите размер поля больше 0!");
@@ -134,7 +135,7 @@ public class CrossAndZeros {
     @Override
     public int hashCode() {
         int result = Objects.hash(size);
-        result = 31 * result + Arrays.hashCode(table);
+        result = 31 * result + Arrays.deepHashCode(table);
         return result;
     }
 }

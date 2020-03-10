@@ -1,7 +1,7 @@
-import Projects.CrossAndZeros;
+import Project1.CrossAndZeros;
 import org.junit.jupiter.api.Test;
 
-import static Projects.Symbol.*;
+import static Project1.Symbol.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CrossAndZerosTest {
@@ -76,5 +76,14 @@ class CrossAndZerosTest {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Test
+    void HashCode() {
+        CrossAndZeros test = new CrossAndZeros(4);
+        CrossAndZeros test1 = new CrossAndZeros(4);
+        assertEquals(test.hashCode(), test1.hashCode());
+        test1.addSymbol(O,1,1);
+        assertNotEquals(test.hashCode(),test1.hashCode());
     }
 }
