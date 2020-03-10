@@ -26,6 +26,8 @@ public class CrossAndZeros {
 
     public boolean addSymbol(Symbol symbol, int line, int column) {
         if (symbol == Null) throw new IllegalArgumentException("Воспользуйтесь методом очищения клетки!");
+        if (line < 0 || column < 0 || line >= size || column >= size)
+            throw new IndexOutOfBoundsException("Укажите подходящую под размер ячейку");
         if (table[line][column] == Null) {
             table[line][column] = symbol;
             return true;
@@ -34,6 +36,8 @@ public class CrossAndZeros {
     }
 
     public boolean clearCell(int line, int column) {
+        if (line < 0 || column < 0 || line >= size || column >= size)
+            throw new IndexOutOfBoundsException("Укажите подходящую под размер ячейку");
         if (table[line][column] == Null) {
             System.out.println("Клетка уже пустая");
             return false;
