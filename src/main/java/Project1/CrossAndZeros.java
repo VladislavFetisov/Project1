@@ -2,6 +2,7 @@ package Project1;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import static Project1.Symbol.Null;
 
@@ -12,6 +13,7 @@ public class CrossAndZeros {
     private Point del1 = new Point(1, 1);
     private Point del2 = new Point(1, -1);
     private Point[] delts = {del1, del2};
+    private static Logger log = Logger.getLogger(String.valueOf(CrossAndZeros.class));
 
 
     public CrossAndZeros(int size) {
@@ -25,22 +27,26 @@ public class CrossAndZeros {
         }
     }
 
+    public boolean checking(int line, int column) {
+        return (line < 0 || column < 0 || line >= size || column >= size);
+    }
+
     public boolean addSymbol(Symbol symbol, int line, int column) {
         if (symbol == Null) throw new IllegalArgumentException("Воспользуйтесь методом очищения клетки!");
-        if (line < 0 || column < 0 || line >= size || column >= size)
+        if (checking(line, column))
             throw new IndexOutOfBoundsException("Укажите подходящую под размер ячейку");
         if (table[line][column] == Null) {
             table[line][column] = symbol;
             return true;
-        } else System.out.println("Клетка занята,выберете другую");
+        } else log.info("Клетка занята,выберете другую");
         return false;
     }
 
     public boolean clearCell(int line, int column) {
-        if (line < 0 || column < 0 || line >= size || column >= size)
+        if (checking(line, column))
             throw new IndexOutOfBoundsException("Укажите подходящую под размер ячейку");
         if (table[line][column] == Null) {
-            System.out.println("Клетка уже пустая");
+            log.info("Клетка уже пустая");
             return false;
         } else table[line][column] = Null;
         return true;
@@ -65,7 +71,7 @@ public class CrossAndZeros {
         }
         while (i != size) {
             for (Point delt : delts) {
-                while (x >= 0 && x < size && y >= 0 && y < size) {
+                while (!checking(x, y)) {
                     if (table[x][y] == symbol) count++;
                     else count = 0;
                     if (count > maxCount) maxCount = count;
@@ -87,7 +93,7 @@ public class CrossAndZeros {
             Point delt;
             if (moreHalf) delt = del2;
             else delt = del1;
-            while (x >= 0 && x < size && y >= 0 && y < size) {
+            while (!checking(x, y)) {
                 if (table[x][y] == symbol) count++;
                 else count = 0;
                 if (count > maxCount) maxCount = count;

@@ -8,33 +8,38 @@ class CrossAndZerosTest {
 
     @Test
     void addSymbol() {
-        CrossAndZeros asd = new CrossAndZeros(4);
-        assertTrue(asd.addSymbol(O, 2, 3));
-        assertFalse(asd.addSymbol(O, 2, 3));
-        assertFalse(asd.addSymbol(X, 2, 3));
-        try {
-            assertTrue(asd.addSymbol(Null, 1, 1));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            assertTrue(asd.addSymbol(X, -1, -1));
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-        }
+        CrossAndZeros test = new CrossAndZeros(4);
+        assertTrue(test.addSymbol(O, 2, 3));
+        assertFalse(test.addSymbol(O, 2, 3));
+        assertFalse(test.addSymbol(X, 2, 3));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> test.addSymbol(Null, 1, 1));
+
+        String expectedMessage = "Воспользуйтесь методом очищения клетки!";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(actualMessage, expectedMessage);
+
+
+        Exception exception1 = assertThrows(IndexOutOfBoundsException.class, () -> test.addSymbol(X, -1, 1));
+
+        String expectedMessage1 = "Укажите подходящую под размер ячейку";
+        String actualMessage1 = exception1.getMessage();
+
+        assertEquals(actualMessage1, expectedMessage1);
     }
 
     @Test
     void clearCell() {
-        CrossAndZeros test = new CrossAndZeros(4);
+        final CrossAndZeros test = new CrossAndZeros(4);
         test.addSymbol(X, 3, 3);
         assertTrue(test.clearCell(3, 3));
         assertFalse(test.clearCell(3, 2));
-        try {
-            assertTrue(test.clearCell(-1, 5));
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-        }
+        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> test.clearCell(-1, 5));
+
+        String expectedMessage = "Укажите подходящую под размер ячейку";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(actualMessage, expectedMessage);
     }
 
     @Test
@@ -71,11 +76,12 @@ class CrossAndZerosTest {
 
     @Test
     void CrossAndZeros() {
-        try {
-            CrossAndZeros a = new CrossAndZeros(-1);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new CrossAndZeros(-1));
+
+        String actualMessage = exception.getMessage();
+        String expectedMessage = "Введите размер поля больше 0!";
+
+        assertEquals(actualMessage, expectedMessage);
     }
 
     @Test
@@ -83,7 +89,7 @@ class CrossAndZerosTest {
         CrossAndZeros test = new CrossAndZeros(4);
         CrossAndZeros test1 = new CrossAndZeros(4);
         assertEquals(test.hashCode(), test1.hashCode());
-        test1.addSymbol(O,1,1);
-        assertNotEquals(test.hashCode(),test1.hashCode());
+        test1.addSymbol(O, 1, 1);
+        assertNotEquals(test.hashCode(), test1.hashCode());
     }
 }
